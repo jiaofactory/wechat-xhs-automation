@@ -1,0 +1,149 @@
+{
+  "_comment": "微信小红书自动化工具 - 配置文件示例",
+  "_warning": "复制此文件为 config.json 并填入真实值，切勿提交 config.json 到版本控制",
+  
+  "wechat": {
+    "_comment": "微信公众号配置",
+    "auth_method": "api",
+    "app_id": "wx_xxxxxxxxxxxxxxxx",
+    "app_secret": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    "token": "your_wechat_token",
+    "encoding_aes_key": "your_encoding_aes_key_43_chars",
+    "account_type": "subscription",
+    "options": {
+      "auto_refresh_token": true,
+      "token_refresh_before_expire": 300
+    }
+  },
+  
+  "xiaohongshu": {
+    "_comment": "小红书账号配置",
+    "auth_method": "phone_password",
+    "phone": "+86138xxxxxxxx",
+    "password": "encrypted_password_here",
+    "device_id": "auto_generated_on_first_login",
+    "user_agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15",
+    "options": {
+      "auto_handle_captcha": true,
+      "max_login_retries": 3,
+      "session_keep_alive": true
+    }
+  },
+  
+  "sync": {
+    "_comment": "双平台同步配置",
+    "enabled": true,
+    "default_tags": ["生活", "分享", "日常"],
+    "auto_convert_format": true,
+    "image_quality": 85,
+    "max_image_dimension": 1440,
+    "watermark": {
+      "enabled": false,
+      "text": "@YourAccount",
+      "position": "bottom_right",
+      "opacity": 0.5
+    },
+    "content_rules": {
+      "max_xhs_title_length": 20,
+      "max_xhs_content_length": 1000,
+      "auto_summarize_long_content": true,
+      "summarize_max_length": 800
+    }
+  },
+  
+  "scheduler": {
+    "_comment": "定时发布配置",
+    "enabled": true,
+    "timezone": "Asia/Shanghai",
+    "check_interval": 60,
+    "retry_attempts": 3,
+    "retry_delay": 300,
+    "max_concurrent_jobs": 5,
+    "persistence": {
+      "type": "json",
+      "path": "./data/scheduler_queue.json"
+    }
+  },
+  
+  "analytics": {
+    "_comment": "数据分析配置",
+    "enabled": true,
+    "collection_interval": 3600,
+    "retention_days": 90,
+    "storage": {
+      "type": "json",
+      "path": "./data/analytics"
+    },
+    "reports": {
+      "auto_generate_weekly": true,
+      "auto_generate_monthly": true,
+      "output_format": ["json", "pdf"]
+    }
+  },
+  
+  "security": {
+    "_comment": "安全配置",
+    "encryption": {
+      "enabled": true,
+      "algorithm": "AES-256-GCM",
+      "key_derivation": "PBKDF2"
+    },
+    "rate_limiting": {
+      "enabled": true,
+      "requests_per_minute": 30,
+      "burst_allowance": 5
+    },
+    "proxy": {
+      "enabled": false,
+      "type": "rotating_residential",
+      "endpoint": "http://proxy.provider.com:8080",
+      "username": "your_proxy_username",
+      "password": "your_proxy_password"
+    }
+  },
+  
+  "logging": {
+    "_comment": "日志配置",
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "handlers": {
+      "console": {
+        "enabled": true
+      },
+      "file": {
+        "enabled": true,
+        "path": "./logs/wechat-xhs-automation.log",
+        "max_size": "10MB",
+        "backup_count": 5
+      }
+    }
+  },
+  
+  "notifications": {
+    "_comment": "通知配置",
+    "enabled": false,
+    "channels": {
+      "email": {
+        "enabled": false,
+        "smtp_server": "smtp.gmail.com",
+        "smtp_port": 587,
+        "username": "your_email@gmail.com",
+        "password": "your_app_password",
+        "to_address": "notify@example.com"
+      },
+      "webhook": {
+        "enabled": false,
+        "url": "https://hooks.example.com/wechat-xhs",
+        "headers": {
+          "Authorization": "Bearer your_webhook_token"
+        }
+      }
+    },
+    "events": {
+      "on_publish_success": true,
+      "on_publish_failure": true,
+      "on_sync_complete": true,
+      "on_rate_limit_hit": true
+    }
+  }
+}
